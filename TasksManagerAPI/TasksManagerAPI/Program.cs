@@ -16,6 +16,7 @@ builder.Services.AddControllers();
 // Регистрация AutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+//Регистрация зависимостей
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
