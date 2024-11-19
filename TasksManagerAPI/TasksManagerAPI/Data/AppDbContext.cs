@@ -62,13 +62,13 @@ namespace TasksManagerAPI.Data
             modelBuilder.Entity<ProjectTask>()
                 .HasOne(pt => pt.CreatedByUser)  // Связь с пользователем
                 .WithMany()  // У пользователя нет коллекции задач
-                .HasForeignKey(pt => pt.CreatedBy)  // Внешний ключ CreatedBy
+                .HasForeignKey(pt => pt.CreatedById)  // Внешний ключ CreatedBy
                 .OnDelete(DeleteBehavior.NoAction); // Устанавливаем null, если пользователь удален
 
             modelBuilder.Entity<Project>()
                 .HasOne(p => p.CreatedByUser)  // Связь с пользователем
                 .WithMany()  // У пользователя нет коллекции проектов
-                .HasForeignKey(p => p.CreatedBy)  // Указываем внешний ключ для связи
+                .HasForeignKey(p => p.CreatedById)  // Указываем внешний ключ для связи
                 .OnDelete(DeleteBehavior.NoAction); // Устанавливаем поведение удаления (по вашему выбору)
 
         }
