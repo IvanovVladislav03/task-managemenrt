@@ -22,6 +22,27 @@ namespace TaskManagementAPI.Controllers
             return Ok(users);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserById(Guid id)
+        {
+            var user = await _userRepository.GetUserByIdAsync(id);
+            return Ok(user);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUser(Guid id)
+        {
+            await _userRepository.DeleteUserAsync(id);
+            return Ok();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser([FromBody] User user)
+        {
+            await _userRepository.UpdateUserAsync(user);
+            return Ok();
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromBody] User user)
         {

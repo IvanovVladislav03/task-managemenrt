@@ -4,6 +4,15 @@ namespace TasksManagerAPI.Models
 {
     public class User
     {
+        public User(Guid id, string username, string passwordHash, string email)
+        {
+            Id = id;
+            Username = username;
+            PasswordHash = passwordHash;
+            Email = email;
+            CreatedAt = DateTime.UtcNow;
+            Role = UserRole.Developer;
+        }
         public Guid Id { get; set; }
         public string Username { get; set; }
         public string PasswordHash { get; set; }

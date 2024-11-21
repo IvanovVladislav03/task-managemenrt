@@ -2,6 +2,7 @@ using TasksManagerAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using TaskManagementAPI.Interfaces;
 using TaskManagementAPI.Repositories;
+using TaskManagementAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,9 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 //Регистрация зависимостей
 builder.Services.AddScoped<IUsersRepository, UsersRepository>();
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddScoped<UsersService>();
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

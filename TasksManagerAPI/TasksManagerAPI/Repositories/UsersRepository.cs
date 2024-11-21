@@ -41,8 +41,10 @@ namespace TaskManagementAPI.Repositories
         }
 
         public async Task UpdateUserAsync(User user)
-        {
-            //await _context.Users.UpdateAsync(user);
+         {
+            var existingUser = await GetUserByIdAsync(user.Id);
+            _context.Entry(existingUser).CurrentValues.SetValues(user);
+
             await _context.SaveChangesAsync();
         }
 
