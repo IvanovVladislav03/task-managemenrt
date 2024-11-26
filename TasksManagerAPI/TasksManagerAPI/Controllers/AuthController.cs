@@ -4,7 +4,7 @@ using TaskManagementAPI.Services;
 
 namespace TaskManagementAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/auth")]
     [ApiController]
     public class AuthController : ControllerBase
     {
@@ -22,11 +22,14 @@ namespace TaskManagementAPI.Controllers
             return Ok();
         }
 
-        //[HttpPost("login")]
-        //public  async Task<IResult> Login([FromBody] LoginUserRequest request)
-        //{
-        //    var token = await _userService.Login(request.Email, request.Password);
-        //    return "";
-        //}
+        [HttpPost("login")]
+        public async Task<IResult> Login([FromBody] LoginUserRequest request)
+        {
+            var token = await _userService.Login(request.Email, request.Password);
+
+            HttpContext.Response.Cookies.Append("cookies-token", token);
+
+            return Results.Ok(token);
+        }
     }
 }

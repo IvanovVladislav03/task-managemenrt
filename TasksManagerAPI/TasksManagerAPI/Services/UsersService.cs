@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using TaskManagementAPI.Interfaces;
+using TaskManagementAPI.Services.Authentication;
 using TasksManagerAPI.Models;
 
 namespace TaskManagementAPI.Services
@@ -8,10 +9,12 @@ namespace TaskManagementAPI.Services
     {
         private readonly IPasswordHasher _passwordHasher;
         private readonly IUsersRepository _usersRepository;
-        public UsersService(IUsersRepository usersRepository, IPasswordHasher passwordHasher)
+        private readonly IJwtProvider _jwtProvider;
+        public UsersService(IUsersRepository usersRepository, IPasswordHasher passwordHasher, IJwtProvider jwtProvider)
         {
             _usersRepository = usersRepository;
             _passwordHasher = passwordHasher;
+            _jwtProvider = jwtProvider;
         }
         public async Task Register(string userName, string email, string password)
         {
@@ -30,7 +33,8 @@ namespace TaskManagementAPI.Services
                 throw new Exception("Failed to login");
             }
 
-            return "";
+            var token = _jwtProvider.GenerateToken(user);
+            return token;
         }
     }
 }
