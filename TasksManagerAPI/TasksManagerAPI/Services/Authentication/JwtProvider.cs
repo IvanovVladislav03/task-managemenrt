@@ -2,10 +2,10 @@
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using TaskManagementAPI.Services.Authentication;
+using TaskManagementAPI.Interfaces;
 using TasksManagerAPI.Models;
 
-namespace TaskManagementAPI.Interfaces
+namespace TaskManagementAPI.Services.Authentication
 {
     public class JwtProvider : IJwtProvider
     {
@@ -16,7 +16,11 @@ namespace TaskManagementAPI.Interfaces
         }
         public string GenerateToken(User user)
         {
-            Claim[] claims = [new("userId", user.Id.ToString())];
+            Claim[] claims = [
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new("userId", user.Id.ToString()),
+                new(ClaimTypes.Role, user.Role.ToString())
+                ];
 
             var signingCredentials = new SigningCredentials(
                 new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_options.SecretKey)),

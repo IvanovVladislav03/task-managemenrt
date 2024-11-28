@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using TaskManagementAPI.Interfaces;
-using TaskManagementAPI.Services.Authentication;
 using TasksManagerAPI.Models;
 
 namespace TaskManagementAPI.Services

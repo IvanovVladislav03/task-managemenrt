@@ -32,6 +32,7 @@ namespace TaskManagementAPI.Controllers
         }
 
         [HttpDelete]
+        //[Authorize(Policy = "AdminPolicy")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             await _userRepository.DeleteUserAsync(id);

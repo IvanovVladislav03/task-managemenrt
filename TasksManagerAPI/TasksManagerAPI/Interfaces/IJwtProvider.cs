@@ -1,6 +1,6 @@
 ﻿using TasksManagerAPI.Models;
 
-namespace TaskManagementAPI.Services.Authentication
+namespace TaskManagementAPI.Interfaces
 {
     public interface IJwtProvider
     {
