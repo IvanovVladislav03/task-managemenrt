@@ -4,9 +4,21 @@ namespace TasksManagerAPI.Models
 {
     public class ProjectTask
     {
+        public ProjectTask(Guid projectId, Guid createdById, string title, string description, Enums.TaskStatus status, TaskPriority priority, DateTime dueDate)
+        {
+            Id = Guid.NewGuid();
+            ProjectId = projectId;
+            CreatedById = createdById;
+            Title = title;
+            Description = description;
+            Status = status;
+            Priority = priority;
+            DueDate = dueDate;
+            CreatedAt = DateTime.UtcNow;
+        }
         public Guid Id { get; set; }
         public string Title { get; set; } = string.Empty;
-        public string? Description { get; set; }
+        public string Description { get; set; } = string.Empty;
         public Enums.TaskStatus Status { get; set; } // Пример перечисления для статуса
         public TaskPriority Priority { get; set; } // Пример перечисления для приоритета
         public Guid ProjectId { get; set; }

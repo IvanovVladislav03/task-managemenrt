@@ -63,6 +63,7 @@ services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 services.AddScoped<IUsersRepository, UsersRepository>();
 services.AddScoped<IPasswordHasher, PasswordHasher>();
 services.AddScoped<IJwtProvider, JwtProvider>();
+services.AddScoped<ITasksRepository, TasksRepository>();
 services.AddScoped<UsersService>();
 services.AddScoped<ProjectRepository>();
 
@@ -70,6 +71,7 @@ services.AddScoped<ProjectRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
+
 
 var app = builder.Build();
 

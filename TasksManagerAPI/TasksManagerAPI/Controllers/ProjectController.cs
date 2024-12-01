@@ -38,6 +38,13 @@ namespace TaskManagementAPI.Controllers
             return Ok(project);
         }
 
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllProjects()
+        {
+            var projects = await _projectRepository.GetAllProjects();
+            return Ok(projects);
+        }
+
         [HttpPost("add-participant")]
         public async Task<IActionResult> AddParticipant([FromBody] AddParticipantRequest request)
         {

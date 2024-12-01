@@ -24,6 +24,7 @@ namespace TaskManagementAPI.Repositories
         public async Task<Project> GetProjectByIdAsync(Guid id)
         {
             var project = await _context.Projects
+                .Include(p => p.ProjectParticipants)
                 .FirstOrDefaultAsync(p => p.Id == id) ?? throw new Exception("Project has not found");
 
             return project;
@@ -37,9 +38,15 @@ namespace TaskManagementAPI.Repositories
             return await projects.ToListAsync();
         }
 
+        public async Task<IEnumerable<Project>> GetAllProjects()
+        {
+            return await _context.Projects.ToListAsync();
+        }
         public async Task AddParticipant(ProjectParticipant projectParticipant)
         {
             var project = await GetProjectByIdAsync(projectParticipant.ProjectId);
+
+            _context.Entry(projectParticipant).State = EntityState.Added;
             project.ProjectParticipants.Add(projectParticipant);
             await _context.SaveChangesAsync();
         }

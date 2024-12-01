@@ -1,4 +1,5 @@
-﻿using TaskManagementAPI.Models.Enums;
+﻿using System.Text.Json.Serialization;
+using TaskManagementAPI.Models.Enums;
 using TasksManagerAPI.Models.Enums;
 
 namespace TasksManagerAPI.Models
@@ -15,6 +16,8 @@ namespace TasksManagerAPI.Models
         }
         public Guid Id { get; set; }
         public Guid ProjectId { get; set; }
+
+        [JsonIgnore]
         public Project? Project { get; set; }
         public Guid UserId { get; set; }
         public User? User { get; set; }
