@@ -36,5 +36,26 @@ namespace TaskManagementAPI.Controllers
             return Ok(task);
 
         }
+
+        [HttpPost("add-assignee")]
+        public async Task<IActionResult> AddTaskAssignee([FromBody] AddAssigneeRequest request)
+        {
+            var taskAssignee = new TaskAssignee(request.TaskId, request.UserId);
+            await _taskRepository.AddAssignee(taskAssignee);
+            return Ok(taskAssignee);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteTask([FromBody] Guid taskId)
+        {
+            await _taskRepository.DeleteTask(taskId);
+            return Ok();
+        }
+
+        //[HttpPut]
+        //public async Task<IActionResult> UpdateTask([FromBody] UpdateTaskRequest request, [FromRoute] Guid projectId)
+        //{
+        //    var task = _taskRepository.GetTaskByIdAsync(request.Id);
+        //}
     }
 }

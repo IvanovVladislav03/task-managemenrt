@@ -15,6 +15,8 @@ namespace TasksManagerAPI.Models
             Priority = priority;
             DueDate = dueDate;
             CreatedAt = DateTime.UtcNow;
+
+            TaskAssignees = new List<TaskAssignee>();
         }
         public Guid Id { get; set; }
         public string Title { get; set; } = string.Empty;
@@ -28,6 +30,8 @@ namespace TasksManagerAPI.Models
         public DateTime DueDate { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+
+        public ICollection<TaskAssignee> TaskAssignees { get; set; }
     }
 
 }

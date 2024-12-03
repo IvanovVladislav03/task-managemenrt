@@ -43,7 +43,7 @@ namespace TasksManagerAPI.Data
             // Настройка поведения для TaskAssignee
             modelBuilder.Entity<TaskAssignee>()
                 .HasOne(ta => ta.Task)
-                .WithMany()
+                .WithMany(t => t.TaskAssignees)
                 .HasForeignKey(ta => ta.TaskId)
                 .OnDelete(DeleteBehavior.Cascade); // При удалении задачи удаляем назначенных пользователей
 
