@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TaskManagementAPI.Contracts.Tasks;
 using TaskManagementAPI.Interfaces;
@@ -52,10 +53,21 @@ namespace TaskManagementAPI.Controllers
             return Ok();
         }
 
-        //[HttpPut]
-        //public async Task<IActionResult> UpdateTask([FromBody] UpdateTaskRequest request, [FromRoute] Guid projectId)
-        //{
-        //    var task = _taskRepository.GetTaskByIdAsync(request.Id);
-        //}
+        [HttpPut]
+        public async Task<IActionResult> UpdateTask([FromBody] UpdateTaskRequest request, [FromRoute] Guid projectId)
+        {
+            var task = _taskRepository.GetTaskByIdAsync(request.Id);
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<UpdateTaskRequest, ProjectTask>()
+                   .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+            });
+
+            var mapper = new Mapper(config);
+            await mapper.Map(request, task); // Автоматически обновит только измененные поля
+            await _taskRepository.UpdateTask(task.Result);
+            return Ok();
+        }
     }
 }
