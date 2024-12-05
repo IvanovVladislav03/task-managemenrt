@@ -56,6 +56,16 @@ services.AddAuthorization(options =>
 });
 
 
+services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:5173");
+        policy.AllowAnyHeader();
+        policy.AllowAnyMethod();
+    });
+});
+
 // Регистрация AutoMapper
 services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -82,10 +92,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors();
+
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+
 
 app.MapControllers();
 
