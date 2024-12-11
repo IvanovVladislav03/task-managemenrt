@@ -12,6 +12,7 @@ const login = async (email, password) => {
     });
 
     if (response.status === 200) {
+      localStorage.setItem('token', response.data);
       return { success: true, message: "Успешный вход!" };
     } else {
       return { success: false, message: response.data.message || "Ошибка на сервере." };

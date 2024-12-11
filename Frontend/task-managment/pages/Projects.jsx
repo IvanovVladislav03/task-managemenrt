@@ -10,8 +10,13 @@ const Projects = () => {
 
   // Метод для загрузки данных из API
   const fetchProjects = async () => {
+    const token = localStorage.getItem('token');
     try {
-      const response = await axios.get("https://localhost:7008/api/project", {withCredentials: true}); 
+      const response = await axios.get("https://localhost:7008/api/project", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+      }); 
       setProjects(response.data); 
     } catch (err) {
       setError(err.response?.data?.message || err.message); 
